@@ -17,25 +17,29 @@ window.secretNumber = Math.floor(Math.random() * 100) + 1;
 window.attempts = 0;
 }
 function makeGuess() {
+window.attempts ++
 const guessNumber = Number(document.getElementById("guess").value);
 if(guessNumber < window.secretNumber) {
-    guessDistance = "Too low! Try again.";
+    guessDistance = "too low";
 }
 else if(guessNumber > window.secretNumber) {
-    guessDistance = "Too high! Try again.";
+    guessDistance = "too high";
 }
 else {
-    guessDistance = "Congratulations " + playerName + "! You've guessed the number in " + window.attempts + " attempts!";
+    guessDistance = "Correct! You've guessed the number in " + window.attempts + " attempts!";
     document.getElementById("guessBtn").disabled = true;
     document.getElementById("giveUpBtn").disabled = true;
     document.getElementById("playBtn").disabled = false;
 }
-if(Math.abs(guessNumber - window.secretNumber) <= 2){
-    guessTemp = "Hot";
-} else if(Math.abs(guessNumber - window.secretNumber) <= 5){
-    guessTemp = "Warm";
-}else{
-    guessTemp = "Cold";
+if (Math.abs(guessNumber - window.secretNumber) <= 2 && Math.abs(guessNumber - window.secretNumber) > 0){
+    guessTemp = "hot and ";
+} else if(Math.abs(guessNumber - window.secretNumber) <= 5 && (Math.abs(guessNumber - window.secretNumber) > 0)){
+    guessTemp = "warm and ";
+}else if(Math.abs(guessNumber - window.secretNumber) > 5){
+    guessTemp = "cold and ";
+    
+} else{
+ guessTemp = ""
 }
-document.getElementById("msg").textContent = guessDistance + " " + guessTemp;
+document.getElementById("msg").textContent = playerName + " your guess was " + guessTemp + guessDistance;
 }
